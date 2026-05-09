@@ -1,0 +1,43 @@
+{
+  "name": "terminus-storage",
+  "version": "1.0.0",
+  "description": "Terminus decentralized storage and encryption layer — Pinata (IPFS) + Lit Protocol",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test:full": "npx tsx src/tests/testVaultFlow.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lit-protocol/auth-helpers": "^7.4.0",
+    "@lit-protocol/constants": "^7.4.0",
+    "@lit-protocol/lit-node-client": "^7.4.0",
+    "@lit-protocol/types": "^7.4.0",
+    "@pinata/sdk": "^2.1.0",
+    "@privy-io/react-auth": "^3.20.0",
+    "@solana/web3.js": "^1.98.4",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.0",
+    "mime-types": "^2.1.35",
+    "multiformats": "9.9.0",
+    "siwe": "^2.3.2"
+  },
+  "overrides": {
+    "multiformats": "9.9.0"
+  },
+  "resolutions": {
+    "multiformats": "9.9.0"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

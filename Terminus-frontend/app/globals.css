@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold-dim:  rgba(201, 169, 110, 0.15);
+  --gold-glow: rgba(201, 169, 110, 0.08);
+  --line:      rgba(255, 255, 255, 0.08);
+  --line2:     rgba(255, 255, 255, 0.14);
+  --glass:     rgba(255, 255, 255, 0.04);
+  --glass2:    rgba(255, 255, 255, 0.07);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    background-color: #0b0c10;
+    color: #e8e2d5;
+  }
+
+  /* Noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  ::selection {
+    background: rgba(201, 169, 110, 0.25);
+    color: #e8cfa0;
+  }
+
+  input[type="password"]::-webkit-outer-spin-button,
+  input[type="password"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+}
+
+@layer utilities {
+  .border-line  { border-color: var(--line); }
+  .border-line2 { border-color: var(--line2); }
+  .bg-glass     { background: var(--glass); }
+  .bg-glass2    { background: var(--glass2); }
+  .bg-gold-dim  { background: var(--gold-dim); }
+  .bg-gold-glow { background: var(--gold-glow); }
+
+  .text-gradient-gold {
+    background: linear-gradient(90deg, #c9a96e, #e8cfa0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Staggered animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+  .delay-800 { animation-delay: 800ms; }
+  .delay-900 { animation-delay: 900ms; }
+  .delay-1000{ animation-delay: 1000ms;}
+
+  .animate-fade-up { animation: fadeUp 0.7s ease both; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #0b0c10; }
+::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,169,110,0.4); }

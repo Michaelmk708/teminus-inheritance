@@ -1,0 +1,108 @@
+{
+  "address": "6whJ6RmLqz8JZ9i9r335bvsff8gqxCmUfSB35EfeFJh5",
+  "metadata": {
+    "name": "terminus",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "execute_claim",
+      "accounts": [
+        { "name": "claimer", "isMut": true, "isSigner": true },
+        { "name": "beneficiary", "isMut": true, "isSigner": false },
+        { "name": "fiduciary", "isMut": true, "isSigner": false },
+        { "name": "vault_account", "isMut": true, "isSigner": false },
+        { "name": "system_program", "isMut": false, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_vault",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault_account", "isMut": true, "isSigner": false },
+        { "name": "system_program", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "beneficiary", "type": "publicKey" },
+        { "name": "fiduciary", "type": "publicKey" },
+        { "name": "ai_oracle", "type": "publicKey" },
+        { "name": "medical_allowance", "type": "u64" },
+        { "name": "deposit_amount", "type": "u64" }
+      ]
+    },
+    {
+      "name": "panic_button",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault_account", "isMut": true, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "ping_heartbeat",
+      "accounts": [
+        { "name": "owner", "isMut": true, "isSigner": true },
+        { "name": "vault_account", "isMut": true, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
+      "name": "trigger_challenge",
+      "accounts": [
+        { "name": "ai_oracle", "isMut": true, "isSigner": true },
+        { "name": "claimant", "isMut": true, "isSigner": true },
+        { "name": "vault_account", "isMut": true, "isSigner": false },
+        { "name": "system_program", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "claim_type", "type": "u8" },
+        { "name": "stake_amount", "type": "u64" }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "VaultAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "owner", "type": "publicKey" },
+          { "name": "beneficiary", "type": "publicKey" },
+          { "name": "fiduciary", "type": "publicKey" },
+          { "name": "ai_oracle", "type": "publicKey" },
+          { "name": "state", "type": { "defined": "VaultState" } },
+          { "name": "last_heartbeat", "type": "i64" },
+          { "name": "challenge_end_time", "type": "i64" },
+          { "name": "medical_allowance", "type": "u64" },
+          { "name": "claim_stake", "type": "u64" },
+          { "name": "pending_claim_type", "type": "u8" },
+          { "name": "bump", "type": "u8" }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "VaultState",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          { "name": "Active" },
+          { "name": "ChallengePeriod" },
+          { "name": "Incapacitated" },
+          { "name": "Deceased" }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "VaultNotActive", "msg": "Vault is not Active." },
+    { "code": 6001, "name": "UnauthorizedOracle", "msg": "Only the AI Oracle can trigger this." },
+    { "code": 6002, "name": "UnauthorizedOwner", "msg": "Only the Owner can press Panic." },
+    { "code": 6003, "name": "NotInChallenge", "msg": "Vault is not in Challenge Period." },
+    { "code": 6004, "name": "ChallengePeriodActive", "msg": "Challenge period has not expired." }
+  ]
+}
